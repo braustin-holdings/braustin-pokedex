@@ -1,4 +1,15 @@
-# Getting Started with Create React App
+# Braustin Pokedex
+A React practice project.
+
+### NOTES
+* We can use URLs like this to get images: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png`
+
+### Wireframe
+![Wireframe](wireframe.jpg "Wireframe")
+
+---
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
