@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css';
+import PokemonDetails from './components/pokemonDetails';
 
 function App() {
   const [search, setSearch] = useState('ditto')
@@ -18,9 +19,11 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <pre>{JSON.stringify(pokemon, null, 2)}</pre>
-        {/* <SearchFrom/>
-        <PokemonDetails/> */}
+        {/* <pre>{JSON.stringify(pokemon, null, 2)}</pre> */}
+        {/* <SearchFrom/> */}
+        <PokemonDetails
+          data={pokemon}
+        /> 
       </header>
     </div>
   );
