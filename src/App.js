@@ -1,7 +1,23 @@
 import { useState, useEffect } from 'react'
-import './App.css';
+import { createGlobalStyle } from 'styled-components'
+import Grid from './components/grid';
+import Sidebar from './components/sidebar';
+import Main from './components/main';
 import PokemonDetails from './components/pokemonDetails';
 import PokemonSearch from './components/pokemonSearch';
+import { colors } from './utils/constants' 
+
+const GlobalStyles = createGlobalStyle`
+  html, body {
+    background-color: ${colors.darkBlue};
+    color: white;
+    margin: 0;
+    padding: 0;
+  }
+  * {
+    box-sizing: border-box;
+  }
+`
 
 function App() {
   const [search, setSearch] = useState('ditto')
@@ -32,7 +48,7 @@ function App() {
   }
 
   const getPokemonList = async () => {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/`)
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=100`)
     const pokemonListResult = await response.json()
     return pokemonListResult.results
   }
@@ -40,16 +56,23 @@ function App() {
   console.log('pokemon list (state): ', pokemonList)
 
   return (
-    <div className="App">
-      <header className="App-header">
-        {/* <pre>{JSON.stringify(pokemon, null, 2)}</pre> */}
-        {/* <SearchFrom/> */}
-        {pokemonList ? <PokemonSearch pokemonList={pokemonList}/> : 'Loading Pokemon List'}
-        {pokemon ? <PokemonDetails
-          data={pokemon}
-        /> : 'no pokemon selected'}
-      </header>
-    </div>
+    <>
+      <GlobalStyles />
+      <Grid cols="1fr 5fr">
+        <Sidebar>
+          {pokemonList 
+            ? <PokemonSearch pokemonList={pokemonList}/> 
+            : 'Loading Pokemon List' }
+        </Sidebar>
+        <Main>
+          {pokemon ? (
+            <PokemonDetails
+              data={pokemon}
+            />
+          ) : 'no pokemon selected'}
+        </Main>
+      </Grid>
+    </>
   );
 }
 
