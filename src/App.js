@@ -17,6 +17,9 @@ const GlobalStyles = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+  h1, h2, h3, h4, h5 {
+    font-family: 'Alegreya Sans SC', sans-serif;
+  }
 `
 
 function App() {
@@ -25,8 +28,12 @@ function App() {
   const [pokemonList, setPokemonList] = useState(null)
 
   useEffect(() => {
-    setupState()
-  }, [])
+    if (!pokemonList) {
+      setupState()
+    } else {
+      setupPokemon(pokemonList[0].name)
+    }
+  }, [pokemonList])
  
   const setupState = async () => {
     
@@ -34,11 +41,13 @@ function App() {
     const pokemonListResult = await getPokemonList()
     setPokemonList(pokemonListResult)
     console.log('Pokemon Result List: ', pokemonListResult)
+  }
 
+  const setupPokemon = async (name) => {
     // Set an initial Pokemon
-    const pokemonResult = await getPokemon(pokemonListResult[0].name)
+    const pokemonResult = await getPokemon(name)
     console.log('Pokemon Result: ', pokemonResult)
-    setPokemon(pokemonResult)
+    setPokemon(pokemonResult)    
   }
 
   const getPokemon = async (name) => {
@@ -61,7 +70,7 @@ function App() {
       <Grid cols="1fr 5fr">
         <Sidebar>
           {pokemonList 
-            ? <PokemonSearch pokemonList={pokemonList}/> 
+            ? <PokemonSearch pokemonList={pokemonList} setupPokemon={setupPokemon}/> 
             : 'Loading Pokemon List' }
         </Sidebar>
         <Main>

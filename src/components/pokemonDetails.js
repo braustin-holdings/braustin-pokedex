@@ -8,27 +8,32 @@ const Header = styled.header`
   padding: 60px 15px;
   & h1 {
     margin: 0;
+    font-size: 72px;
   }
+`
+const Body = styled.div`
+ display: flex;
+ justify-content: center;
+ align-items: center;
 `
 
 const PokemonDetails = ({ data }) => {
+  console.log(data)
   return (
     <>
       <Header pokemonId={data.id}>
         <h1>{data.name}</h1>
       </Header>
-      <div>
-      </div>
-      <div>
+      <Body>
         <img src={`https://img.pokemondb.net/sprites/black-white/anim/normal/${data.name.toLowerCase()}.gif`} width="200"/>
         <ul>
           {data.stats.map(statObj => (
-            <li key={statObj.stat.name}>{statObj.stat.name}</li>
+            <li key={statObj.stat.name}>{`${statObj.stat.name}: ${statObj.base_stat}`}</li>
 
           ))}
         </ul>
 
-      </div>
+      </Body>
     </>
   )
 
